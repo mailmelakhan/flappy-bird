@@ -1,28 +1,31 @@
+import Phaser from 'Phaser';
+import PlayScene from './scenes/PlayScene';
+import MenuScene from './scenes/MenuScene';
+import PreloadScene from './scenes/PreloadScene';
+import ScoreScene from './scenes/ScoreScene';
+import PauseScene from './scenes/PauseScene';
 
-import Phaser from "phaser";
+
+const WIDTH = 400;
+const HEIGHT = 600;
+
+const sceneList = [PreloadScene, MenuScene, ScoreScene, PlayScene, PauseScene];
+const sceneListInstances = sceneList.map(Scene => new Scene());
 
 const config = {
+  width: WIDTH,
+  height: HEIGHT,
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
+  pixelArt: true,
   physics: {
-    default: 'arcade',
+    default:'arcade',
     arcade: {
-      gravity: { y: 200 }
+      //debug:true
     }
   },
-  scene: {
-    preload: preload,
-    create: create
-  }
+  scene:sceneListInstances
 };
 
-new Phaser.Game(config);
+new Phaser.Game(config)
 
-function preload () {
-  this.load.image('sky', 'assets/sky.png');
-}
 
-function create () {
-  this.add.image(400, 300, 'sky');
-}
